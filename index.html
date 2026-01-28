@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Jean-Claude — la première IA aware :)</title>
+
+  <!-- Police : Barlow Condensed -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --beige-1:#f3e6cf;
+      --beige-2:#efe0c5;
+      --beige-3:#f7eddc;
+      --ink:#1f1f1f;
+      --ink-soft: rgba(31,31,31,.72);
+      --card: rgba(255,255,255,.55);
+      --border: rgba(0,0,0,.10);
+      --shadow: 0 18px 60px rgba(0,0,0,.12);
+      --radius: 18px;
+    }
+
+    * { box-sizing: border-box; }
+    body{
+      margin:0;
+      min-height:100vh;
+      font-family: "Barlow Condensed", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--ink);
+      background:
+        radial-gradient(900px 420px at 20% 10%, rgba(255,255,255,.55), transparent 60%),
+        radial-gradient(900px 420px at 80% 20%, rgba(255,255,255,.40), transparent 60%),
+        linear-gradient(135deg, var(--beige-1), var(--beige-2) 45%, var(--beige-3));
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding: 28px 16px;
+    }
+
+    .wrap{
+      width:min(820px, 100%);
+      display:flex;
+      flex-direction:column;
+      gap: 18px;
+    }
+
+    .card{
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      overflow:hidden;
+    }
+
+    .main{
+      padding: 22px 22px 18px;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      text-align:center;
+      gap: 14px;
+    }
+
+    /* Image au-dessus, à 70% */
+    .hero-img{
+      width: 70%;
+      border-radius: 16px;
+      overflow:hidden;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.55);
+    }
+    .hero-img img{
+      width:fit-content;
+      margin: 0 auto;
+      height:auto;
+      object-fit:contain;
+    }
+
+    h1{
+      margin:0;
+      font-size: clamp(44px, 6vw, 68px);
+      letter-spacing: .6px;
+      line-height: .95;
+      font-weight: 700;
+    }
+
+    .subtitle{
+      margin:0;
+      font-size: clamp(18px, 2.4vw, 26px);
+      color: var(--ink-soft);
+      font-weight: 400;
+    }
+
+    .form{
+      margin-top: 8px;
+      width: min(520px, 100%);
+      display:flex;
+      flex-direction:column;
+      gap: 10px;
+    }
+
+    .input{
+      width:100%;
+      padding: 14px 16px;
+      font-size: 20px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.75);
+      outline: none;
+      transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease;
+    }
+    .input:focus{
+      border-color: rgba(0,0,0,.22);
+      box-shadow: 0 10px 28px rgba(0,0,0,.10);
+      transform: translateY(-1px);
+    }
+
+    .btn{
+      padding: 14px 16px;
+      font-size: 22px;
+      font-weight: 600;
+      border-radius: 14px;
+      border: 1px solid rgba(0,0,0,.18);
+      background: rgba(31,31,31,.92);
+      color: #fff;
+      cursor:pointer;
+      transition: transform .12s ease, box-shadow .12s ease, background .12s ease;
+    }
+    .btn:hover{
+      transform: translateY(-1px);
+      box-shadow: 0 14px 34px rgba(0,0,0,.16);
+      background: rgba(31,31,31,.97);
+    }
+    .btn:active{
+      transform: translateY(0px);
+      box-shadow: 0 10px 26px rgba(0,0,0,.12);
+    }
+
+    .hint{
+      font-size: 18px;
+      color: rgba(0,0,0,.55);
+      margin: 0;
+    }
+
+    /* Bloc résultat caché au départ */
+    .results{
+      padding: 18px 20px 20px;
+      display:none;
+    }
+    .results.is-visible{
+      display:block;
+    }
+    .results h2{
+      margin: 0 0 10px;
+      font-size: 24px;
+      font-weight: 600;
+      letter-spacing: .3px;
+      color: rgba(0,0,0,.78);
+    }
+    blockquote{
+      margin: 12px 0 0;
+      padding: 14px 16px;
+      border-left: 4px solid rgba(0,0,0,.55);
+      background: rgba(255,255,255,.55);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      font-size: 22px;
+      line-height: 1.3;
+    }
+    blockquote footer{
+      margin-top: 8px;
+      font-size: 18px;
+      color: rgba(0,0,0,.60);
+    }
+  </style>
+</head>
+
+<body>
+  <main class="wrap">
+    <section class="card main">
+      <!-- Image au-dessus du titre -->
+      <div class="hero-img" aria-label="Image de Jean-Claude">
+        <!-- Mets jcvd.png dans le même dossier que ce fichier HTML -->
+        <img src="jcvd.png" alt="Jean-Claude sur deux camions" />
+      </div>
+
+      <header>
+        <h1>Jean-Claude</h1>
+        <p class="subtitle">la première IA aware :)</p>
+      </header>
+
+      <div class="form" role="search" aria-label="Recherche aware">
+        <input id="query" class="input" type="text" placeholder="Tape ta requête ici" autocomplete="off" />
+        <button id="btn" class="btn" type="button">Trouve moi la réponse</button>
+        <p class="hint">Clique pour obtenir une réponse… aware.</p>
+      </div>
+    </section>
+
+    <!-- Caché tant que l'utilisateur n'a pas cliqué -->
+    <section id="results" class="card results" aria-live="polite">
+      <h2>Résultat</h2>
+      <div id="output"></div>
+    </section>
+  </main>
+
+  <script>
+    const quotes = [
+      "Le ridicule n'existe pas, on crée le ridicule.",
+      "Ce n'est pas moi qui parle...c'est nous qui parlons.",
+      "Tu regardes à l'intérieur de toi et tu deviens aware of your own body!",
+      "Dans la vie, il faut partager. Au plus qu'on donne, au plus qu'on reçoit...",
+      "En vérité, la vérité, il n'y a pas de vérité !",
+      "Il faut se battre pour essayer de ne pas répéter nos erreurs, elles sont faciles à retenir mais on les répète toujours.",
+      "La drogue, c'est comme quand tu close your eyes et que tu traverses la rue.",
+      "Le talent, ça se travaille, mais ça ne se perd pas.",
+      "Nous les humains, on a inventé le temps. Mais le temps n'existe pas, car il y a une matter, une puissance de compression, qui n'est pas la même pour chaque species on earth.",
+      "Il ne faut pas écouter les bruits du monde, mais le silence de l'âme.",
+      "Le grand combat, c'est contre soi-même. La victoire, c'est d'avoir compris ce que l'on veut... et d'y croire.",
+      "Je suis fasciné par l'air. Si on enlevait l'air du ciel, tous les oiseaux tomberaient par terre... Et les avions aussi. En même temps, l'air, tu ne peux pas le toucher. Ça existe et ça n'existe pas. Ça nourrit l'homme",
+      "J’adore l’eau, dans 20 ou 30 ans il n’y en aura plus"
+    ];
+
+    const btn = document.getElementById("btn");
+    const query = document.getElementById("query");
+    const results = document.getElementById("results");
+    const output = document.getElementById("output");
+
+    function pickRandom(arr) {
+      return arr[Math.floor(Math.random() * arr.length)];
+    }
+
+    function escapeHtml(str) {
+      return str
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function showQuote() {
+      const q = (query.value || "").trim();
+      const quote = pickRandom(quotes);
+
+      // Affiche le bloc résultat au 1er clic
+      results.classList.add("is-visible");
+
+      // Remplace le résultat
+      output.innerHTML = `
+        <blockquote>
+          ${quote}
+          <footer>— Jean-Claude, IA aware${q ? ` (pour : “${escapeHtml(q)}”)` : ""}</footer>
+        </blockquote>
+      `;
+    }
+
+    btn.addEventListener("click", showQuote);
+
+    // Entrée = clic
+    query.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") showQuote();
+    });
+  </script>
+</body>
+</html>
